@@ -19,7 +19,7 @@
 */
 
 # include <fcntl.h>
-# include <mlx.h>
+# include "../libmlx/mlx.h"
 # include "../libft/libft.h"
 # include "../libftmath/libftmath.h"
 # include "colors.h"

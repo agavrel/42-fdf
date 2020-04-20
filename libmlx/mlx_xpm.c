@@ -1,36 +1,24 @@
-// mlx xpm
-// by ol
+/*
+** xpm-read.c for MinilibX in 
+** 
+** Made by Charlie Root
+** Login   <ol@epitech.net>
+** 
+** Started on  Tue Dec 11 15:25:27 2001 olivier crouzet
+** Last update Sat Oct  1 14:56:13 2005 Olivier Crouzet
+*/
 
-#include <OpenGL/gl3.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/mman.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
+
 #include	"mlx_int.h"
 
-typedef struct  s_xpm_col
-{
-  int           name;
-  int           col;
-} t_xpm_col;
-
-
-struct  s_col_name
-{
-  char  *name;
-  int   color;
-};
-
-//extern struct s_col_name mlx_col_name[];
-#include "mlx_rgb.c"
+extern struct s_col_name mlx_col_name[];
 
 
 #define	RETURN	{ if (colors) free(colors); if (tab) free(tab); \
 		  if (colors_direct) free(colors_direct); \
-                  if (img) mlx_destroy_image(xvar, img);   \
-                  return ((void *)0); }
+                  if (img) {XDestroyImage(img->image); \
+                            XFreePixmap(xvar->display,img->pix);free(img);} \
+                  return ((void *)0);}
 
 
 
@@ -109,9 +97,8 @@ int	mlx_int_get_text_rgb(char *name, char *end)
 }
 
 
-void	mlx_int_xpm_set_pixel(mlx_img_list_t *img, char *data, int opp, int col, int x)
+int	mlx_int_xpm_set_pixel(t_img *img, char *data, int opp, int col, int x)
 {
-  /*
   int	dec;
 
   dec = opp;
@@ -123,13 +110,10 @@ void	mlx_int_xpm_set_pixel(mlx_img_list_t *img, char *data, int opp, int col, in
 	*(data+x*opp+opp-dec-1) = col&0xFF;
       col >>= 8;
     }
-  */
-  // opp is 4, do it the simple way
-  *((unsigned int *)(data+4*x)) = col;
 }
 
 
-void	*mlx_int_parse_xpm(mlx_ptr_t *xvar,void *info,int info_size,char *(*f)())
+void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
 {
   int	pos;
   char	*line;
@@ -146,11 +130,14 @@ void	*mlx_int_parse_xpm(mlx_ptr_t *xvar,void *info,int info_size,char *(*f)())
   int	x;
   int	i;
   int	j;
-  mlx_img_list_t	*img;
+  t_img	*img;
   t_xpm_col	*colors;
   int		*colors_direct;
   int	width;
   int	height;
+  XImage	*clip_img;
+  XGCValues	xgcv;
+  Pixmap	clip_pix;
 
   colors = 0;
   colors_direct = 0;
@@ -189,39 +176,35 @@ void	*mlx_int_parse_xpm(mlx_ptr_t *xvar,void *info,int info_size,char *(*f)())
 
       if (!tab[j])
 	RETURN;
-
-      rgb_col = mlx_int_get_text_rgb(tab[j], tab[j+1]);
-      /*      
+      
       if ((rgb_col = mlx_int_get_text_rgb(tab[j], tab[j+1]))==-1)
 	{
-	  if (!(clip_data = malloc(4*width*height)) ||   // ok, nice size ..
+	  if (!(clip_data = malloc(4*width*height)) ||   /* ok, nice size .. */
 	      !(clip_img = XCreateImage(xvar->display, xvar->visual,
 					1, XYPixmap, 0, clip_data,
 					width, height, 8, (width+7)/8)) )
 	    RETURN;
 	  memset(clip_data, 0xFF, 4*width*height);
 	}
-      */
+
       if (method)
-	colors_direct[mlx_int_get_col_name(line,cpp)] = rgb_col;
-      //	  rgb_col>=0?mlx_get_color_value(xvar, rgb_col):rgb_col;
+	colors_direct[mlx_int_get_col_name(line,cpp)] =
+	  rgb_col>=0?mlx_get_color_value(xvar, rgb_col):rgb_col;
       else
 	{
 	  colors[i].name = mlx_int_get_col_name(line,cpp);
-	  colors[i].col = rgb_col; // rgb_col>=0?mlx_get_color_value(xvar,rgb_col):rgb_col;
+	  colors[i].col = rgb_col>=0?mlx_get_color_value(xvar,rgb_col):rgb_col;
 	}
       free(tab);
-      tab = 0;
     }
 
   if (!(img = mlx_new_image(xvar,width,height)))
     RETURN;
-  //opp = img->bpp/8;
-  opp = 4;
+  opp = img->bpp/8;
 
 
   i = height;
-  data = img->buffer;
+  data = img->data;
   while (i--)
     {
       if (!(line = f(info,&pos,info_size)))
@@ -243,18 +226,14 @@ void	*mlx_int_parse_xpm(mlx_ptr_t *xvar,void *info,int info_size,char *(*f)())
 		    j = 0;
 		  }
 	    }
-	  //	  if (col==-1)
-	  //	    XPutPixel(clip_img, x, height-1-i, 0);
-	  //	  else
 	  if (col==-1)
-	    col = 0xFF000000;
-	  mlx_int_xpm_set_pixel(img, data, opp, col, x);
+	    XPutPixel(clip_img, x, height-1-i, 0);
+	  else
+	    mlx_int_xpm_set_pixel(img, data, opp, col, x);
 	  x ++;
 	}
-      //      data += img->size_line;
-      data += img->width*4;
+      data += img->size_line;
     }
-  /*
   if (clip_data)
     {
       if (!(clip_pix = XCreatePixmap(xvar->display, xvar->root,
@@ -272,7 +251,6 @@ void	*mlx_int_parse_xpm(mlx_ptr_t *xvar,void *info,int info_size,char *(*f)())
       XSync(xvar->display, False);
       XDestroyImage(clip_img);
     }
-  */
   if (colors)
     free(colors);
   if (colors_direct)
@@ -281,7 +259,7 @@ void	*mlx_int_parse_xpm(mlx_ptr_t *xvar,void *info,int info_size,char *(*f)())
 }
 
 
-void	mlx_int_file_get_rid_comment(char *ptr, int size)
+int	mlx_int_file_get_rid_comment(char *ptr, int size)
 {
   int	com_begin;
   int	com_end;
@@ -299,13 +277,14 @@ void	mlx_int_file_get_rid_comment(char *ptr, int size)
 }
 
 
-void	*mlx_xpm_file_to_image(mlx_ptr_t *xvar,char *file,int *width,int *height)
+void	*mlx_xpm_file_to_image(t_xvar *xvar,char *file,int *width,int *height)
 {
   int	fd;
   int	size;
   char	*ptr;
-  mlx_img_list_t	*img;
+  t_img	*img;
 
+  fd = -1;
   if ((fd = open(file,O_RDONLY))==-1 || (size = lseek(fd,0,SEEK_END))==-1 ||
       (ptr = mmap(0,size,PROT_WRITE|PROT_READ,MAP_PRIVATE,fd,0))==
       (void *)MAP_FAILED)
@@ -315,7 +294,7 @@ void	*mlx_xpm_file_to_image(mlx_ptr_t *xvar,char *file,int *width,int *height)
       return ((void *)0);
     }
   mlx_int_file_get_rid_comment(ptr, size);
-  if ((img = mlx_int_parse_xpm(xvar,ptr,size,mlx_int_get_line)))
+  if (img = mlx_int_parse_xpm(xvar,ptr,size,mlx_int_get_line))
     {
       *width = img->width;
       *height = img->height;
@@ -325,11 +304,11 @@ void	*mlx_xpm_file_to_image(mlx_ptr_t *xvar,char *file,int *width,int *height)
   return (img);
 }
 
-void	*mlx_xpm_to_image(mlx_ptr_t *xvar,char **xpm_data,int *width,int *height)
+void	*mlx_xpm_to_image(t_xvar *xvar,char **xpm_data,int *width,int *height)
 {
-  mlx_img_list_t	*img;
+  t_img	*img;
 
-  if ((img = mlx_int_parse_xpm(xvar,xpm_data,0,mlx_int_static_line)))
+  if (img = mlx_int_parse_xpm(xvar,xpm_data,0,mlx_int_static_line))
     {
       *width = img->width;
       *height = img->height;

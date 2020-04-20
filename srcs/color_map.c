@@ -66,9 +66,7 @@ void				original_color(t_3d *d)
 void				color_map(t_3d *d)
 {
 	t_index		i;
-	float		range;
 
-	range = d->z_max - d->z_min;
 	i.y = 0;
 	while (i.y < d->max.y)
 	{
