@@ -21,7 +21,7 @@
 
 int		color_hook(int k, t_3d *d)
 {
-	if (k == KEY_PAD_0)
+	if (k == '0')
 		d->season = 0;
 	else if (k == KEY_PAD_1)
 		d->season = 1;
