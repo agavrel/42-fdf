@@ -50,14 +50,14 @@ $(NAME): $(OBJS)
 	@make -C $(LIBFT)
 	@make -C $(LIBFTMATH_PATH)
 	@make -C $(MLX)
-	@$(CC) $(FLAGS) -L $(LIBFT) -lft -o $@ $^ -L $(MLX) -lmlx -L $(LIBFTMATH_PATH) -lftmath -I $(LIBFT)
+	@$(CC) $(FLAGS) -L $(LIBFT) -lft -L $(MLX) -lmlx -L $(LIBFTMATH_PATH) -lftmath  -o $@ $<
 	@echo "$(GREEN)Project successfully compiled"
 
 tmp:
 	@mkdir -p objs
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)/$(NAME).h
-	@$(CC) $(FLAGS) -I $(HEADER) -c -o $@ $<
+	@$(CC) $(FLAGS) -c -o $@ $<
 	@echo "$(BLUE)Creating object file -> $(WHITE)$(notdir $@)... $(RED)[Done]$(NOC)"
 
 clean:

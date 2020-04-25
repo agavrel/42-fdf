@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: agrumbac <agrumbac@student.42.fr>          +#+  +:+       +#+         #
+#    By: angavrel <angavrel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/11/04 17:08:23 by agrumbac          #+#    #+#              #
-#    Updated: 2017/05/16 22:06:37 by agrumbac         ###   ########.fr        #
+#    Created: 2016/11/04 17:08:23 by angavrel          #+#    #+#              #
+#    Updated: 2017/05/16 22:06:37 by angavrel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
