@@ -48,7 +48,7 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)Creating lib files$(CYAN)"
 	@make -C $(LIBFT)
 	@make -C $(MLX)
-	$(CC) $(FLAGS) -L $(LIBFT) -L $(MLX) -o $@ $^ -lft -lglut -lmlx -lm
+	$(CC) $(FLAGS) -L $(LIBFT) -L $(MLX) -o $@ $^ -lft -lmlx -lXext -lX11 -lm
 	@echo "$(GREEN)Project successfully compiled"
 
 tmp:
