@@ -49,7 +49,8 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)Creating lib files$(CYAN)"
 	@make -C $(LIBFT)
 	@make -C $(LIBFTMATH_PATH)
-	@${CC} ${FLAGS} -g -Ilibft/includes/ -I.  -g -I$(LIBMATH_PATH)  -I ${MLX}/mlx.h -Llibft/ -lft  -o $@ ${OBJ} 
+	@make -C $(MLX)
+	@$(CC) $(FLAGS) -L $(LIBFT) -lft -o $@ $^ -L $(MLX) -lmlx -L $(LIBFTMATH_PATH) -lftmath
 	@echo "$(GREEN)Project successfully compiled"
 
 tmp:
