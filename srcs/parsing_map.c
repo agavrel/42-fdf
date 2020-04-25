@@ -20,23 +20,23 @@ int			read_map(t_3d *d, char *s)
 {
 	char		*line;
 	int			fd;
-	t_bool		is_first_line;
+	bool		is_first_line;
 
 	fd = open(s, O_RDONLY);
-	is_first_line = True;
-	while (get_next_line(fd, &line) == 1)
+	is_first_line = true;
+	while (ft_get_next_line(fd, &line) == 1)
 	{
-		if (is_first_line == True)
+		if (is_first_line == true)
 		{
 			d->s = ft_strdup(line);
 			d->max.x = parse_map(line);
 		}
 		else if (d->max.x != parse_map(line))
-			return (ft_error("Invalid file"));
-		if (is_first_line == False)
+			ft_error("Invalid file");
+		if (is_first_line == false)
 			d->s = ft_strjoinfree(ft_strjoinfree(d->s, " ", 'L'), line, 'B');
 		++d->max.y;
-		is_first_line = False;
+		is_first_line = false;
 	}
 	close(fd);
 	free(line);
@@ -60,7 +60,7 @@ short		parse_map(char *s)
 	{
 		if (ft_isdigit(s[i]))
 		{
-			if (parse_digit(s, &i) == False)
+			if (parse_digit(s, &i) == false)
 				return (0);
 			++x_len;
 		}
@@ -78,7 +78,7 @@ short		parse_map(char *s)
 ** checks that color is valid and stocks it into *d->c
 */
 
-t_bool		parse_color(char *s, unsigned *i)
+bool		parse_color(char *s, unsigned *i)
 {
 	size_t		n;
 
@@ -87,21 +87,21 @@ t_bool		parse_color(char *s, unsigned *i)
 				s[*i + n] <= 'F') || (s[*i + n] >= 'a' && s[*i + n] <= 'f')))
 		++n;
 	if (n > 8)
-		return (False);
+		return (false);
 	*i += n;
-	return (True);
+	return (true);
 }
 
 /*
 ** checks that digit is a valid one.
 */
 
-t_bool		parse_digit(char *s, unsigned *i)
+bool		parse_digit(char *s, unsigned *i)
 {
 	if (!*i || ((s[*i - 1]) == ' ') || (s[*i - 1] == '-'))
 		++*i;
 	else
-		return (False);
+		return (false);
 	while (s[*i] && ft_isdigit(s[*i]))
 		++*i;
 	if (s[*i] == ',')
@@ -109,13 +109,13 @@ t_bool		parse_digit(char *s, unsigned *i)
 		if (s[*i + 1] && s[*i + 2] && s[*i + 1] == '0' && s[*i + 2] == 'x')
 		{
 			*i += 3;
-			if (parse_color(s, i) == False)
-				return (False);
+			if (parse_color(s, i) == false)
+				return (false);
 		}
 		else
-			return (False);
+			return (false);
 	}
-	return (True);
+	return (true);
 }
 
 /*

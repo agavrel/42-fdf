@@ -45,7 +45,7 @@ long		get_colors(t_3d *d)
 		return (0xaaaaaa);
 	}
 	d->s += n;
-	d->map_had_color = True;
+	d->map_had_color = true;
 	return (c);
 }
 
@@ -111,23 +111,26 @@ int			main(int ac, char **av)
 	int		fd;
 
 	if (ac < 2)
-		return (ft_error("Usage: ./fdf [File]"));
-	if ((fd = open(av[1], O_RDONLY)) == -1)
-		return (ft_error("Could not open file"));
-	if (!read_map(&d, av[1]))
-		return (ft_error("Wrong inputs"));
-	if (!malloc_map(&d))
-		return (ft_error("Conversion to isometric 3d failed"));
-	d.map_had_color = False;
-	if (!get_depth_and_colors(&d))
-		return (ft_error("Wrong inputs"));
-	init_variables(&d);
-	d.img.mlx = mlx_init();
-	if (!(d.img.w = mlx_new_window(d.img.mlx, WIDTH, HEIGHT, TITLE)))
-		return (ft_error("Window's creation failed"));
-	(d.map_had_color == True) ? original_color(&d) : color_map(&d);
-	d.help_display = 2;
-	d.vertical_view = False;
-	fdf(&d);
+		ft_putendl_fd("Usage: ./fdf [File]", 2);
+	else if ((fd = open(av[1], O_RDONLY)) == -1)
+		ft_putendl_fd("Could not open file", 2);
+	else if (!read_map(&d, av[1]))
+		ft_putendl_fd("Wrong inputs", 2);
+	else if (!malloc_map(&d))
+		ft_putendl_fd("Conversion to isometric 3d failed", 2);
+	else if (!get_depth_and_colors(&d))
+		ft_putendl_fd("Wrong inputs", 2);
+	else {	
+		init_variables(&d);
+		d.img.mlx = mlx_init();
+		if (!(d.img.w = mlx_new_window(d.img.mlx, WIDTH, HEIGHT, TITLE))) {
+			ft_putendl_fd("Window's creation failed", 2);
+			return 1;
+		}
+		(d.map_had_color == true) ? original_color(&d) : color_map(&d);
+		d.help_display = 2;
+		d.vertical_view = false;
+		fdf(&d);
+	}
 	return (0);
 }

@@ -53,13 +53,13 @@ void	init_variables(t_3d *d)
 	d->offs.x = WIDTH / 2 - d->center.x;
 	d->offs.y = HEIGHT / 2 - d->center.y;
 	d->offs.z = 1;
-	if (d->vertical_view == True)
+	if (d->vertical_view == true)
 		d->angle = (t_vector) {.x = 0, .y = 0, .z = 0};
 	else
 		d->angle = (t_vector) {.x = 0.926, .y = 6.07, .z = 0.62};
 	d->l = (t_argb) {.a = 0, .r = 0, .g = 0, .b = 0};
 	d->depth = 1;
-	d->season = (d->map_had_color == True) ? 4 : 0;
+	d->season = (d->map_had_color == true) ? 4 : 0;
 	zoom.x = (WIDTH / d->max.y - 1) * 1.1;
 	zoom.y = (HEIGHT / d->max.x - 1) * 1.1;
 	d->scaling.x = (zoom.x <= zoom.y) ? zoom.x : zoom.y;

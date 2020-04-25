@@ -18,7 +18,7 @@ ft_arrayadd.c ft_arraydel.c ft_arraynew.c ft_arrayappend.c ft_arrayread.c
 SRC_IO = \
 ft_get_next_line.c ft_putendl.c ft_putnbr_fd.c \
 ft_putchar.c ft_putendl_fd.c ft_putstr.c \
-ft_putchar_fd.c ft_putnbr.c ft_putstr_fd.c
+ft_putchar_fd.c ft_putnbr.c ft_putstr_fd.c ft_error.c
 
 SRC_LST = \
 ft_lstadd.c ft_lstdel.c ft_lstiter.c ft_lstnew.c \
@@ -41,7 +41,7 @@ ft_isprint.c ft_strcpy.c ft_strlcat.c ft_strnequ.c ft_strtrim.c \
 ft_itoa.c ft_itoa_base.c ft_strdel.c ft_strlen.c ft_strnew.c \
 ft_strcat.c ft_strdup.c ft_strmap.c ft_strnstr.c ft_toupper.c ft_tolower.c \
 ft_strtolower.c ft_strtoupper.c ft_wcslen.c ft_strlaststr.c ft_strnjoin.c \
-ft_strndup.c ft_strjoinnfree.c ft_itoa_base_s.c
+ft_strndup.c ft_strjoinnfree.c ft_itoa_base_s.c ft_strjoinfree.c
 
 SRC_PRINTF = \
 ft_printf.c ft_printf_int.c ft_printf_str.c ft_printf_ptr.c \

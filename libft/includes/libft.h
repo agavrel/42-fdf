@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agrumbac <agrumbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angavrel <angavrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 16:10:16 by agrumbac          #+#    #+#             */
-/*   Updated: 2017/05/16 22:33:47 by agrumbac         ###   ########.fr       */
+/*   Created: 2016/11/05 16:10:16 by angavrel          #+#    #+#             */
+/*   Updated: 2017/05/16 22:33:47 by angavrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <stdbool.h>
 
 # define BUFF_SIZE 16
 # define ARRAY_SIZE 4
@@ -63,6 +64,7 @@ void				ft_putstr_fd(const char *s, int fd);
 void				ft_putendl_fd(const char *s, int fd);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
+bool				ft_error(const char *s);
 
 void				ft_bzero(void *s, size_t n);
 void				*ft_memalloc(size_t size);
@@ -95,6 +97,7 @@ void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 int					ft_strnequ(const char *s1, const char *s2, size_t n);
 char				*ft_strjoin(const char *s1, const char *s2);
+char				*ft_strjoinfree(char *s1, char *s2, char control);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strmap(const char *s, char (*f)(char));

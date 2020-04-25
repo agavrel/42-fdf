@@ -20,10 +20,11 @@
 
 # include <fcntl.h>
 # include "../libmlx/mlx.h"
-# include "../libft/libft.h"
+# include "../libft/includes/libft.h"
 # include "../libftmath/libftmath.h"
 # include "colors.h"
 # include "keycode_mac.h"
+# include <stdbool.h>
 
 # define TITLE					"FDF"
 # define PI						3.14159265359
@@ -125,7 +126,7 @@ typedef struct	s_3d
 	char		*s;
 	t_index		max;
 	float		depth;
-	t_bool		vertical_view;
+	bool		vertical_view;
 	t_vector	angle;
 	t_vector	offs;
 	t_vector	scaling;
@@ -143,7 +144,7 @@ typedef struct	s_3d
 	short		season;
 	t_argb		l;
 	short		help_display;
-	t_bool		map_had_color;
+	bool		map_had_color;
 	int			shade;
 }				t_3d;
 
@@ -153,8 +154,8 @@ typedef struct	s_3d
 
 int				read_map(t_3d *d, char *s);
 short			parse_map(char *s);
-t_bool			parse_digit(char *s, unsigned *i);
-t_bool			parse_color(char *s, unsigned *i);
+bool			parse_digit(char *s, unsigned *i);
+bool			parse_color(char *s, unsigned *i);
 int				malloc_map(t_3d *d);
 int				get_depth_and_colors(t_3d *d);
 long			get_colors(t_3d *d);

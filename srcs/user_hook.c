@@ -113,7 +113,7 @@ int		user_hook(int k, t_3d *d)
 	else if (k == 49 || k == KEY_P)
 	{
 		if (k == KEY_P)
-			d->vertical_view = (d->vertical_view == False) ? True : False;
+			d->vertical_view = !d->vertical_view;
 		mlx_clear_window(d->img.mlx, d->img.w);
 		init_variables(d);
 		fdf(d);

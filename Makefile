@@ -11,6 +11,7 @@ OBJ_PATH  = objs
 HEADER = incl
 SRC_PATH  = srcs
 LIBFTMATH_PATH = libftmath
+MLX = libmlx
 
 ### SOURCES ###
 SOURCES = main.c \
@@ -48,7 +49,7 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)Creating lib files$(CYAN)"
 	@make -C $(LIBFT)
 	@make -C $(LIBFTMATH_PATH)
-	@$(CC) $(FLAGS) -L $(LIBFT) -lft -o $@ $^ -framework OpenGL -framework AppKit -lmlx -L $(LIBFTMATH_PATH) -lftmath
+	@${CC} ${FLAGS} -g -Ilibft/includes/ -I.  -g -I$(LIBMATH_PATH)  -I ${MLX}/mlx.h -Llibft/ -lft  -o $@ ${OBJ} 
 	@echo "$(GREEN)Project successfully compiled"
 
 tmp:
