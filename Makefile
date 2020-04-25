@@ -50,7 +50,7 @@ $(NAME): $(OBJS)
 	@make -C $(LIBFT)
 	@make -C $(LIBFTMATH_PATH)
 	@make -C $(MLX)
-	@$(CC) $(FLAGS) -L $(LIBFT) -lft -o $@ $^ -L $(MLX) -lmlx -L $(LIBFTMATH_PATH) -lftmath
+	@$(CC) $(FLAGS) -L $(LIBFT) -lft -o $@ $^ -L $(MLX) -lmlx -L $(LIBFTMATH_PATH) -lftmath -I $(LIBFT)
 	@echo "$(GREEN)Project successfully compiled"
 
 tmp:
