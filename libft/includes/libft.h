@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdbool.h>
+# include <math.h>
 
 # define BUFF_SIZE 16
 # define ARRAY_SIZE 4
@@ -124,6 +125,40 @@ char				*ft_strjoinnfree(char *s1, char *s2, size_t len, \
 					char free12b);
 char				*ft_strndup(const char *s, size_t n);
 
+
+
+# define I int
+# define F float
+
+typedef struct	s_i
+{
+	int		x;
+	int		y;
+	int		z;
+}				t_i;
+
+typedef struct	s_vector
+{
+	float	x;
+	float	y;
+	float	z;
+	float	w;
+}				t_vector;
+
+void				ft_putnbr_base(int n, int b);
+long				ft_htoi(char *s);
+void				ft_puthex(int n);
+int					ft_isdigit(int c);
+float				**ft_identity_matrix(int fill, int fill_diagonal);
+float				**ft_matrix_rotation(float x, char axis);
+float				**ft_matrix_global_rotation(float **m, t_vector angle);
+float				**ft_matrix_scaling(float **m, t_vector scaling);
+float				**ft_matrix_z_scaling(float **matrix, float coefficient);
+float				**ft_sum_matrix(float **a, float **b);
+float				**ft_factor_matrix_free(float **a, float **b, char free);
+t_vector			ft_matrix_to_vector(float **m, t_vector v, t_vector center);
+void				ft_free_matrix(float **m);
+float				**ft_copy_matrix(float **m);
 long long			ft_abs(long long n);
 int					ft_sqrt(unsigned int n);
 int					ft_gcd(unsigned int a, unsigned int b);
@@ -134,5 +169,6 @@ int					ft_atoi(const char *str);
 long				ft_atol(const char *str);
 long long			ft_atoll(const char *str);
 int					ft_atoi_base(const char *str, int base);
+int					ft_clamp(int n, int min, int max);
 
 #endif

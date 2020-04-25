@@ -21,7 +21,6 @@
 # include <fcntl.h>
 # include "../libmlx/mlx.h"
 # include "../libft/includes/libft.h"
-# include "../libftmath/libftmath.h"
 # include "colors.h"
 # include "keycode_mac.h"
 # include <stdbool.h>

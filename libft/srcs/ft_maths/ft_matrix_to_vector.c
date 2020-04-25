@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libftmath.h"
+#include "libft.h"
 
 t_vector	ft_matrix_to_vector(float **m, t_vector v, t_vector c)
 {

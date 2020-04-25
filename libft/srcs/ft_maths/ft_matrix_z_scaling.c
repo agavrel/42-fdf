@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_htoi.c                                          :+:      :+:    :+:   */
+/*   ft_matrix_z_scaling.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angavrel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/29 17:05:59 by angavrel          #+#    #+#             */
-/*   Updated: 2017/01/25 16:38:48 by angavrel         ###   ########.fr       */
+/*   Created: 2017/01/20 20:12:25 by angavrel          #+#    #+#             */
+/*   Updated: 2017/01/22 02:54:28 by angavrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libftmath.h"
+#include "libft.h"
 
-long	ft_htoi(char *s)
+float	**ft_matrix_z_scaling(float **matrix, float coefficient)
 {
-	long	n;
-
-	n = 0;
-	while (*s)
-	{
-		n *= 16;
-		if (*s >= 'A' && *s <= 'F')
-			n += *s - 'A' + 10;
-		else
-			n += ft_isdigit(*s) ? *s - '0' : *s - 'a' + 10;
-		++s;
-	}
-	return (n);
+	matrix[0][2] *= coefficient;
+	matrix[1][2] *= coefficient;
+	return (matrix);
 }

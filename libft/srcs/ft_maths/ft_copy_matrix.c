@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libftmath.h"
+#include "libft.h"
 
 float	**ft_copy_matrix(float **m)
 {

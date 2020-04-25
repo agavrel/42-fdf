@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libftmath.h"
+#include "libft.h"
 
 float	**ft_matrix_global_rotation(float **m, t_vector a)
 {

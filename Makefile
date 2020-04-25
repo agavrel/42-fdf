@@ -1,5 +1,5 @@
 ### COMPILATION ###
-C      = gcc
+CC      = gcc
 FLAGS  = -Wall -Wextra -Werror
 
 ### EXECUTABLE ###
@@ -10,7 +10,6 @@ LIBFT  = libft
 OBJ_PATH  = objs
 HEADER = incl
 SRC_PATH  = srcs
-LIBFTMATH_PATH = libftmath
 MLX = libmlx
 
 ### SOURCES ###
@@ -48,9 +47,8 @@ all: tmp $(NAME)
 $(NAME): $(OBJS)
 	@echo "$(GREEN)Creating lib files$(CYAN)"
 	@make -C $(LIBFT)
-	@make -C $(LIBFTMATH_PATH)
 	@make -C $(MLX)
-	@$(CC) $(FLAGS) -L $(LIBFT) -lft -L $(MLX) -lmlx -L $(LIBFTMATH_PATH) -lftmath  -o $@ $<
+	$(CC) $(FLAGS) -L $(LIBFT) -L $(MLX) -o $@ $^ -lft -lglut -lmlx -lm
 	@echo "$(GREEN)Project successfully compiled"
 
 tmp:
@@ -63,7 +61,6 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)/$(NAME).h
 clean:
 	@echo "$(GREEN)Supressing libraries files$(CYAN)"
 	@make clean -C $(LIBFT)
-	@make clean -C $(LIBFTMATH_PATH)
 	@rm -rf $(OBJ_PATH)
 
 fclean:
@@ -71,7 +68,6 @@ fclean:
 	@rm -rf $(OBJ_PATH)
 	@rm -f $(NAME)
 	@make fclean -C $(LIBFT)
-	@make fclean -C $(LIBFTMATH_PATH)
 
 re: fclean
 	@$(MAKE) all -j

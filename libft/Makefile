@@ -25,8 +25,11 @@ ft_lstadd.c ft_lstdel.c ft_lstiter.c ft_lstnew.c \
 ft_lstaddend.c ft_lstdelone.c ft_lstmap.c ft_lstsize.c ft_lstsort.c
 
 SRC_MATHS = \
-ft_abs.c ft_fac.c ft_intlen.c ft_sqrt.c \
-ft_atoi.c ft_gcd.c ft_pow.c ft_atol.c ft_atoll.c ft_atoi_base.c
+ft_abs.c ft_fac.c ft_intlen.c ft_sqrt.c ft_clamp.c \
+ft_atoi.c ft_gcd.c ft_pow.c ft_atol.c ft_atoll.c ft_atoi_base.c \
+ft_htoi.c ft_identity_matrix.c ft_matrix_global_rotation.c \
+ft_factor_matrix_free.c ft_matrix_z_scaling.c ft_copy_matrix.c \
+ft_matrix_to_vector.c ft_free_matrix.c
 
 SRC_MEM = \
 ft_bzero.c ft_memccpy.c ft_memcmp.c ft_memdel.c ft_memset.c \
