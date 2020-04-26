@@ -35,6 +35,7 @@ void		ft_draw(t_3d *d)
 	t_index		i;
 	t_hexcolor	color;
 
+	i.x = 0;
 	i.y = 0;
 	while (i.y < d->max.y)
 	{

@@ -1,5 +1,5 @@
 ### COMPILATION ###
-CC      = gcc
+CC      = gcc -O2
 FLAGS  = -Wall -Wextra -Werror
 
 ### EXECUTABLE ###
@@ -12,7 +12,7 @@ HEADER = incl
 SRC_PATH  = srcs
 MLX = libmlx
 
-### SOURCES ###
+### SOURCE FILES ###
 SOURCES = main.c \
 		  parsing_map.c \
 		  fdf.c \
@@ -42,12 +42,14 @@ WHITE       = \033[1;37m
 
 ### RULES ###
 
-all: tmp $(NAME)
+all: lib tmp $(NAME)
 
-$(NAME): $(OBJS)
+lib:
 	@echo "$(GREEN)Creating lib files$(CYAN)"
 	@make -C $(LIBFT)
 	@make -C $(MLX)
+
+$(NAME): $(OBJS)
 	$(CC) $(FLAGS) -L $(LIBFT) -L $(MLX) -o $@ $^ -lft -lmlx -lXext -lX11 -lm
 	@echo "$(GREEN)Project successfully compiled"
 
